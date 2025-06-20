@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的内容页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .content-section {
+            padding: 2.5rem;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 0.8rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 2rem 0;
+        }
+        
+        .feature-box {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #eaeaea;
+        }
+        
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+        
+        .feature-box i {
+            font-size: 2.5rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-box h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 2rem 0;
+        }
+        
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            height: 180px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px 5px;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-secondary {
+            background: #2c3e50;
+        }
+        
+        .btn-secondary:hover {
+            background: #1a252f;
+        }
+        
+        footer {
+            background: #2c3e50;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 1.5rem;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>备忘录</h1>
+            <p>这是一个简洁的备忘录</p>
+        </header>
+        
+        <main class="content-section">
+            <h2 class="section-title">内容</h2>
+            <p>window开机时间查看命令：打开powershell输入 (Get-Date) - (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime</p>
+            <p>window在线激活方法：打开powershell 输入 irm https://get.activated.win | iex</p>
+            
+            <h2 class="section-title">未知</h2>
+            <div class="features">
+                <div class="feature-box">
+                    <i>📱</i>
+                    <h3>测试</h3>
+                    <p>测试</p>
+                </div>
+                <div class="feature-box">
+                    <i>🎨</i>
+                    <h3>测试</h3>
+                    <p>测试</p>
+                </div>
+                <div class="feature-box">
+                    <i>⚡</i>
+                    <h3>测试</h3>
+                    <p>测试</p>
+                </div>
+            </div>
+            
+            <h2 class="section-title">图片展示</h2>
+            <div class="image-gallery">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="自然风景">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="山脉">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="森林">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1505142468610-359e7d316be0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="湖泊">
+                </div>
+            </div>
+            
+            <h2 class="section-title">联系我们</h2>
+            <p>如果您有任何问题或需要帮助，请随时联系我们：</p>
+            <p>邮箱: </p>
+            <p>电话: /p>
+            
+            <div style="margin-top: 2rem; text-align: center;">
+                <a href="#" class="btn">了解更多</a>
+                <a href="#" class="btn btn-secondary">联系我们</a>
+            </div>
+        </main>
+        
+        <footer>
+            <p>&copy; 2023 我的网站. 保留所有权利。</p>
+            <p style="margin-top: 10px; font-size: 0.9rem;">简单HTML模板 | 轻松定制您的内容</p>
+        </footer>
+    </div>
+</body>
+</html>
