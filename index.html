@@ -10,184 +10,243 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            color: #333;
+            color: #343a40;
             line-height: 1.6;
-        }
-        
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
         
         .container {
             width: 100%;
-            max-width: 800px;
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            max-width: 900px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             margin: 20px auto;
+            transition: transform 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
         }
         
         header {
-            background: linear-gradient(to right, #4b6cb7, #182848);
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
             color: white;
-            padding: 30px 40px;
+            padding: 35px 40px;
             position: relative;
             text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,261.3C672,256,768,224,864,197.3C960,171,1056,149,1152,165.3C1248,181,1344,235,1392,261.3L1440,288L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center bottom;
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
             font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            letter-spacing: 0.5px;
         }
         
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             opacity: 0.9;
             font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .content-section {
-            padding: 30px;
+            padding: 40px 30px 30px;
+        }
+        
+        .memo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
         }
         
         .memo-item {
             background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            border-left: 5px solid #4b6cb7;
-            position: relative;
+            border-radius: 14px;
+            padding: 28px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid #4361ee;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
         
         .memo-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(67, 97, 238, 0.15);
+        }
+        
+        .memo-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4361ee, #3a0ca3);
         }
         
         .memo-title {
-            font-size: 1.3rem;
-            color: #2c3e50;
-            margin-bottom: 15px;
+            font-size: 1.4rem;
+            color: #212529;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 600;
         }
         
         .memo-title i {
-            color: #4b6cb7;
-            font-size: 1.4rem;
+            color: #4361ee;
+            font-size: 1.6rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .memo-content {
             font-size: 1.1rem;
             line-height: 1.7;
-            padding-left: 30px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            color: #495057;
         }
         
         .download-btn {
-            display: inline-block;
-            background: linear-gradient(to right, #4b6cb7, #182848);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(to right, #4361ee, #3a0ca3);
             color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
             border: none;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.05rem;
             margin-top: 10px;
-            box-shadow: 0 4px 10px rgba(75, 108, 183, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            width: fit-content;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
         }
         
         .download-btn:hover {
-            background: linear-gradient(to right, #4361ee, #3a0ca3);
+            background: linear-gradient(to right, #3a56d4, #2f0a8a);
             transform: translateY(-3px);
-            box-shadow: 0 7px 15px rgba(75, 108, 183, 0.4);
+            box-shadow: 0 7px 18px rgba(67, 97, 238, 0.4);
         }
         
         .command {
             background-color: #f8f9fa;
-            border-left: 4px solid #3498db;
-            padding: 15px;
-            margin: 15px 0;
+            border-left: 4px solid #4361ee;
+            padding: 16px;
+            margin: 18px 0;
             border-radius: 0 8px 8px 0;
             font-family: 'Courier New', monospace;
             position: relative;
             overflow-x: auto;
+            font-size: 1.05rem;
+            color: #212529;
         }
         
         .copy-btn {
             position: absolute;
             top: 10px;
             right: 10px;
-            background: rgba(52, 152, 219, 0.1);
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
+            background: rgba(67, 97, 238, 0.1);
+            border: 1px solid rgba(67, 97, 238, 0.2);
+            border-radius: 6px;
+            padding: 6px 12px;
             font-size: 0.9rem;
             cursor: pointer;
-            color: #3498db;
+            color: #4361ee;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
         
         .copy-btn:hover {
-            background: rgba(52, 152, 219, 0.2);
+            background: rgba(67, 97, 238, 0.2);
         }
         
         footer {
             text-align: center;
-            padding: 25px;
-            color: #666;
+            padding: 28px;
+            color: #6c757d;
             font-size: 1rem;
-            border-top: 1px solid #eee;
             background-color: #f8f9fa;
+            border-top: 1px solid #e9ecef;
         }
         
         @media (max-width: 768px) {
             header {
-                padding: 25px 20px;
+                padding: 30px 20px;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
             }
             
             h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .content-section {
-                padding: 20px;
+                padding: 30px 20px;
+            }
+            
+            .memo-grid {
+                grid-template-columns: 1fr;
             }
             
             .memo-item {
-                padding: 20px;
+                padding: 24px;
             }
         }
         
         @media (max-width: 480px) {
-            .memo-content {
-                padding-left: 15px;
+            header {
+                padding: 25px 15px;
+            }
+            
+            h1 {
+                font-size: 1.9rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .memo-title {
+                font-size: 1.3rem;
             }
             
             .download-btn {
@@ -201,49 +260,51 @@
     <div class="container">
         <header>
             <h1>个人备忘录</h1>
-            <div class="subtitle">重要信息与常用工具下载</div>
+            <div class="subtitle">重要信息与常用工具整理</div>
         </header>
         
         <div class="content-section">
-            <div class="memo-item">
-                <h3 class="memo-title"><i class="fas fa-desktop"></i> Windows 系统命令</h3>
-                <div class="memo-content">
-                    <p>查看系统开机时间：</p>
-                    <div class="command">
-                        (Get-Date) - (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime
-                        <button class="copy-btn">复制</button>
+            <div class="memo-grid">
+                <div class="memo-item">
+                    <h3 class="memo-title"><i class="fas fa-desktop"></i> Windows 系统命令</h3>
+                    <div class="memo-content">
+                        <p>查看系统开机时间：</p>
+                        <div class="command">
+                            (Get-Date) - (Get-CimInstance -ClassName Win32_OperatingSystem).LastBootUpTime
+                            <button class="copy-btn"><i class="far fa-copy"></i> 复制</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="memo-item">
-                <h3 class="memo-title"><i class="fas fa-key"></i> Windows 激活方法</h3>
-                <div class="memo-content">
-                    <p>在线激活 Windows 系统：</p>
-                    <div class="command">
-                        irm https://get.activated.win | iex
-                        <button class="copy-btn">复制</button>
+                
+                <div class="memo-item">
+                    <h3 class="memo-title"><i class="fas fa-key"></i> Windows 激活方法</h3>
+                    <div class="memo-content">
+                        <p>在线激活 Windows 系统：</p>
+                        <div class="command">
+                            irm https://get.activated.win | iex
+                            <button class="copy-btn"><i class="far fa-copy"></i> 复制</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="memo-item">
-                <h3 class="memo-title"><i class="fas fa-download"></i> Geek 卸载工具</h3>
-                <div class="memo-content">
-                    <p>一款轻量级、功能强大的软件卸载工具</p>
-                    <a href="https://memo.8235467.xyz/geek.exe" download="geek.exe" class="download-btn">
-                        <i class="fas fa-download"></i> 下载 Geek 卸载工具
-                    </a>
+                
+                <div class="memo-item">
+                    <h3 class="memo-title"><i class="fas fa-download"></i> Geek 卸载工具</h3>
+                    <div class="memo-content">
+                        <p>一款轻量级、功能强大的软件卸载工具</p>
+                        <a href="https://memo.8235467.xyz/geek.exe" download="geek.exe" class="download-btn">
+                            <i class="fas fa-download"></i> 下载 Geek 卸载工具
+                        </a>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="memo-item">
-                <h3 class="memo-title"><i class="fas fa-sync-alt"></i> Linux 换源工具</h3>
-                <div class="memo-content">
-                    <p>一键更换 Linux 软件源：</p>
-                    <div class="command">
-                        bash <(curl -sSL https://linuxmirrors.cn/main.sh)
-                        <button class="copy-btn">复制</button>
+                
+                <div class="memo-item">
+                    <h3 class="memo-title"><i class="fas fa-sync-alt"></i> Linux 换源工具</h3>
+                    <div class="memo-content">
+                        <p>一键更换 Linux 软件源：</p>
+                        <div class="command">
+                            bash <(curl -sSL https://linuxmirrors.cn/main.sh)
+                            <button class="copy-btn"><i class="far fa-copy"></i> 复制</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -251,7 +312,7 @@
         
         <footer>
             <p>&copy; 2023 个人备忘录 | 仅限个人使用</p>
-            <p style="margin-top: 10px; font-size: 0.9rem;">所有内容保存在本地浏览器中</p>
+            <p style="margin-top: 10px; font-size: 0.95rem; color: #868e96;">页面设计简洁美观，内容随时访问</p>
         </footer>
     </div>
 
@@ -263,10 +324,17 @@
                 button.addEventListener('click', function() {
                     const command = this.parentElement.textContent.replace('复制', '').trim();
                     navigator.clipboard.writeText(command).then(() => {
-                        const originalText = this.textContent;
-                        this.textContent = '已复制!';
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-check"></i> 已复制!';
+                        this.style.background = 'rgba(40, 167, 69, 0.15)';
+                        this.style.color = '#28a745';
+                        this.style.borderColor = 'rgba(40, 167, 69, 0.3)';
+                        
                         setTimeout(() => {
-                            this.textContent = originalText;
+                            this.innerHTML = originalText;
+                            this.style.background = 'rgba(67, 97, 238, 0.1)';
+                            this.style.color = '#4361ee';
+                            this.style.borderColor = 'rgba(67, 97, 238, 0.2)';
                         }, 2000);
                     });
                 });
@@ -274,15 +342,22 @@
             
             // 下载按钮点击效果
             const downloadBtn = document.querySelector('.download-btn');
-            downloadBtn.addEventListener('click', function(e) {
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 正在下载...';
-                setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-check"></i> 下载完成!';
+            if(downloadBtn) {
+                downloadBtn.addEventListener('click', function(e) {
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 正在下载...';
+                    this.style.background = 'linear-gradient(to right, #20c997, #099268)';
+                    
                     setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-download"></i> 下载 Geek 卸载工具';
-                    }, 2000);
-                }, 1500);
-            });
+                        this.innerHTML = '<i class="fas fa-check"></i> 下载完成!';
+                        this.style.background = 'linear-gradient(to right, #20c997, #099268)';
+                        
+                        setTimeout(() => {
+                            this.innerHTML = '<i class="fas fa-download"></i> 下载 Geek 卸载工具';
+                            this.style.background = 'linear-gradient(to right, #4361ee, #3a0ca3)';
+                        }, 2000);
+                    }, 1500);
+                });
+            }
         });
     </script>
 </body>
