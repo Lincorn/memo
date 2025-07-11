@@ -148,6 +148,7 @@
         .download-btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             background: linear-gradient(to right, #4361ee, #3a0ca3);
             color: white;
@@ -162,12 +163,30 @@
             margin-top: auto;
             box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
         
         .download-btn:hover {
             background: linear-gradient(to right, #3a56d4, #2f0a8a);
             transform: translateY(-3px);
             box-shadow: 0 7px 18px rgba(67, 97, 238, 0.4);
+        }
+        
+        .download-btn::after {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 20px;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(25deg);
+            transition: all 0.6s;
+        }
+        
+        .download-btn:hover::after {
+            left: 120%;
         }
         
         .command {
@@ -223,6 +242,12 @@
             margin-bottom: 15px;
         }
         
+        .file-size {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 8px;
+        }
+        
         footer {
             text-align: center;
             padding: 28px;
@@ -274,9 +299,34 @@
             
             .download-btn {
                 width: 100%;
-                justify-content: center;
                 padding: 12px 20px;
             }
+        }
+        
+        /* 下载状态提示 */
+        .download-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 8px;
+            background: #28a745;
+            color: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            z-index: 1000;
+            transform: translateX(150%);
+            transition: transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .download-status.show {
+            transform: translateX(0);
+        }
+        
+        .download-status.error {
+            background: #dc3545;
         }
     </style>
 </head>
@@ -312,10 +362,11 @@
                 </div>
                 
                 <div class="memo-item">
-                    <h3 class="memo-title"><i class="fas fa-download"></i> Geek 卸载工具</h3>
+                    <h3 class="memo-title"><i class="fas fa-trash-alt"></i> Geek 卸载工具</h3>
                     <div class="memo-content">
                         <p>一款轻量级、功能强大的软件卸载工具，能彻底清除软件残留文件和注册表项。</p>
-                        <a href="#" class="download-btn" data-filename="geek.exe">
+                        <p class="file-size">文件大小: 6.5 MB</p>
+                        <a href="https://memo.8235467.xyz/geek.exe" download="geek.exe" class="download-btn" id="geek-download">
                             <i class="fas fa-download"></i> 下载 Geek 卸载工具
                         </a>
                     </div>
@@ -332,12 +383,12 @@
                     </div>
                 </div>
                 
-                <!-- 新增的Rufus工具卡片 -->
                 <div class="memo-item">
                     <h3 class="memo-title"><i class="fas fa-usb"></i> Rufus 系统盘制作工具</h3>
                     <div class="memo-content">
                         <p>轻量级、功能强大的USB启动盘制作工具，支持多种ISO镜像文件。</p>
-                        <a href="#" class="download-btn" data-filename="rufus-4.7_x86.exe">
+                        <p class="file-size">文件大小: 1.3 MB</p>
+                        <a href="https://memo.8235467.xyz/rufus-4.7_x86.exe" download="rufus-4.7_x86.exe" class="download-btn" id="rufus-download">
                             <i class="fas fa-download"></i> 下载 Rufus 工具
                         </a>
                     </div>
@@ -347,8 +398,14 @@
         
         <footer>
             <p>&copy; 2023 个人备忘录 | 仅限个人使用</p>
-            <p style="margin-top: 10px; font-size: 0.95rem; color: #868e96;">页面设计简洁美观，内容随时访问</p>
+            <p style="margin-top: 10px; font-size: 0.95rem; color: #868e96;">点击下载按钮即可获取所需工具</p>
         </footer>
+    </div>
+
+    <!-- 下载状态提示 -->
+    <div class="download-status" id="download-status">
+        <i class="fas fa-check-circle"></i>
+        <span>文件开始下载</span>
     </div>
 
     <script>
@@ -375,32 +432,54 @@
                 });
             });
             
-            // 下载按钮点击效果（支持多个按钮）
-            const downloadBtns = document.querySelectorAll('.download-btn');
-            downloadBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
+            // 下载功能
+            const downloadButtons = document.querySelectorAll('.download-btn');
+            const downloadStatus = document.getElementById('download-status');
+            
+            downloadButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
                     e.preventDefault();
                     
                     const originalHTML = this.innerHTML;
-                    const filename = this.getAttribute('data-filename');
+                    const downloadUrl = this.getAttribute('href');
+                    const filename = this.getAttribute('download');
+                    const toolName = this.textContent.includes('Geek') ? 'Geek卸载工具' : 'Rufus工具';
                     
+                    // 显示下载状态
+                    downloadStatus.querySelector('span').textContent = `${toolName}开始下载...`;
+                    downloadStatus.className = 'download-status show';
+                    
+                    // 更新按钮状态
                     this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 正在下载...';
                     this.style.background = 'linear-gradient(to right, #20c997, #099268)';
                     
-                    // 模拟下载过程
+                    // 创建隐藏的iframe触发下载
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = downloadUrl;
+                    document.body.appendChild(iframe);
+                    
+                    // 设置超时检测
+                    let downloadTimeout = setTimeout(() => {
+                        downloadStatus.querySelector('span').textContent = `${toolName}下载完成!`;
+                    }, 2000);
+                    
+                    // 恢复按钮状态
                     setTimeout(() => {
-                        this.innerHTML = '<i class="fas fa-check"></i> 下载完成!';
-                        this.style.background = 'linear-gradient(to right, #20c997, #099268)';
+                        this.innerHTML = originalHTML;
+                        this.style.background = 'linear-gradient(to right, #4361ee, #3a0ca3)';
                         
-                        // 显示下载文件名
-                        const toolName = this.textContent.includes('Geek') ? 'Geek' : 'Rufus';
-                        console.log(`${toolName}工具已下载: ${filename}`);
-                        
+                        // 隐藏状态提示
                         setTimeout(() => {
-                            this.innerHTML = originalHTML;
-                            this.style.background = 'linear-gradient(to right, #4361ee, #3a0ca3)';
-                        }, 2000);
-                    }, 1500);
+                            downloadStatus.className = 'download-status';
+                        }, 3000);
+                    }, 3000);
+                    
+                    // 清理iframe
+                    setTimeout(() => {
+                        document.body.removeChild(iframe);
+                        clearTimeout(downloadTimeout);
+                    }, 5000);
                 });
             });
         });
